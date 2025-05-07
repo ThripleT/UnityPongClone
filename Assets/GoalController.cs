@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,7 +31,8 @@ public class GoalController : MonoBehaviour
 
     private void ResetBall(GameObject ball)
     {
-        ball.GetComponent<BallController>().StartRound();
+        BallController ballController = ball.GetComponent<BallController>();
+        ballController.StartCoroutine(ballController.StartRound());
     }
 
     private void UpdateScoreUI()
