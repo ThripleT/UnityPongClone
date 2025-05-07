@@ -18,7 +18,6 @@ public class BallController : MonoBehaviour
 
     public IEnumerator StartRound()
     {
-        Debug.Log("Test");
         rb = GetComponent<Rigidbody2D>();
         rb.linearVelocity = Vector2.zero;
         rb.transform.position = Vector2.zero;
