@@ -314,6 +314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialSpeed: 8
+  paddleStrenght: 8
   countdownText: {fileID: 726155379}
 --- !u!50 &363993114
 Rigidbody2D:

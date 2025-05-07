@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class BallController : MonoBehaviour
 {
     public float initialSpeed = 8f;
-    public float paddleStrenght = 8f;
+    public float paddleStrenght = 4f;
     private Rigidbody2D rb;
     private Vector2 velocity;
 
@@ -51,7 +51,7 @@ public class BallController : MonoBehaviour
             Rigidbody2D paddle = gameObject.GetComponent<Rigidbody2D>();
             float collisionY =  rb.position.y - paddle.position.y;
 
-            velocity.y = collisionY * paddleStrenght;
+            velocity.y = collisionY * (paddleStrenght - Mathf.Abs(velocity.y) * 0.5f) + velocity.y * 0.5f;
             velocity.x *= -1f;
         }
         else
