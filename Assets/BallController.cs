@@ -8,7 +8,14 @@ public class BallController : MonoBehaviour
 
     private void Start()
     {
+        StartRound();
+    }
+
+    public void StartRound()
+    {
         rb = GetComponent<Rigidbody2D>();
+        rb.linearVelocity = Vector2.zero;
+        rb.transform.position = Vector2.zero;
         float x = Random.value < 0.5f ? -1 : 1;
         float y = Random.Range(-0.5f, 0.5f);
         velocity = new Vector2(x, y).normalized * initialSpeed;
@@ -19,8 +26,6 @@ public class BallController : MonoBehaviour
     {
         ContactPoint2D contact = collision.GetContact(0);
         Vector2 bounce = contact.point;
-        Debug.Log(velocity);
-        Debug.Log(bounce);
         if (-4.8 < bounce.y && bounce.y < 4.8) // its impossible for the ball to hit a paddle at this y coordinate
         {
             velocity.x *= -1f;
@@ -29,9 +34,7 @@ public class BallController : MonoBehaviour
         {
             velocity.y *= -1f;
         }
-        Debug.Log(velocity);
         velocity *= 1.05f;
-        Debug.Log(velocity);
         rb.linearVelocity = velocity;
     }
 }
