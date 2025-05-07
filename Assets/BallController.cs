@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class BallController : MonoBehaviour
 {
     public float initialSpeed = 8f;
+    public float paddleStrenght = 8f;
     private Rigidbody2D rb;
     private Vector2 velocity;
 
@@ -18,6 +19,8 @@ public class BallController : MonoBehaviour
 
     public IEnumerator StartRound()
     {
+        velocity = Vector2.zero;
+
         rb = GetComponent<Rigidbody2D>();
         rb.linearVelocity = Vector2.zero;
         rb.transform.position = Vector2.zero;
@@ -42,16 +45,20 @@ public class BallController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         ContactPoint2D contact = collision.GetContact(0);
-        Vector2 bounce = contact.point;
-        if (-4.8 < bounce.y && bounce.y < 4.8) // its impossible for the ball to hit a paddle at this y coordinate
+        GameObject gameObject = collision.gameObject;
+        if (gameObject.GetComponent<PaddleController>() != null)
         {
+            Rigidbody2D paddle = gameObject.GetComponent<Rigidbody2D>();
+            float collisionY =  rb.position.y - paddle.position.y;
+
+            velocity.y = collisionY * paddleStrenght;
             velocity.x *= -1f;
         }
         else
         {
             velocity.y *= -1f;
         }
-        velocity *= 1.05f;
+        velocity.x *= 1.05f;
         rb.linearVelocity = velocity;
     }
 }
